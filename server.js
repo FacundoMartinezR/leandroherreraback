@@ -166,13 +166,21 @@ app.post('/api/stripe/verify', async (req, res) => {
 
 // 4) Login y authAdmin
 app.post('/api/login', (req, res) => {
+  console.log('Login request body:', req.body);
   const { username, password } = req.body;
+  if (!username || !password) {
+    console.log('Faltan campos username/password');
+    return res.status(400).json({ error: 'Faltan campos.' });
+  }
   if (username === process.env.ADMIN_USER && password === process.env.ADMIN_PASS) {
     const token = jwt.sign({ role: 'admin' }, process.env.JWT_SECRET, { expiresIn: '1h' });
+    console.log('Login exitoso, token:', token);
     return res.json({ token });
   }
+  console.log('Credenciales inválidas');
   res.status(401).json({ error: 'Credenciales inválidas.' });
 });
+
 function authAdmin(req, res, next) {
   const auth = req.headers.authorization;
   if (!auth?.startsWith('Bearer ')) return res.status(401).json({ error: 'No autorizado.' });
