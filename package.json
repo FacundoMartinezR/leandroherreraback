@@ -2,10 +2,12 @@
   "name": "back",
   "version": "1.0.0",
   "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon Server.js"
-  },
+ "scripts": {
+  "test": "echo \"Error: no test specified\" && exit 1",
+  "dev": "nodemon Server.js",
+  "start": "node Server.js",
+  "build": "echo 'no build step'"
+},
   "keywords": [],
   "author": "",
   "license": "ISC",
